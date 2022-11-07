@@ -25,6 +25,7 @@ model User {
   id               String        @id @default(cuid())
   name             String
   email            String        @unique
+  googleId         String?       @unique
   avatarUrl        String?
   participantintAt Participant[]
   ownPool          Pool[]
@@ -49,6 +50,8 @@ model Guess {
   gameId           String
   game             Game        @relation(fields: [gameId], references: [id])
   participant      Participant @relation(fields: [participantId], references: [id])
+
+  @@unique([participantId, gameId])
 }
 
 model Participant {
